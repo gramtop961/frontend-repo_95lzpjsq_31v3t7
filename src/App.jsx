@@ -1,71 +1,51 @@
+import { useState } from 'react'
+import TitleLevelSelector from './components/TitleLevelSelector'
+import CompetencyList from './components/CompetencyList'
+import IngestPanel from './components/IngestPanel'
+
 function App() {
+  const [selection, setSelection] = useState({ title: '', level: '' })
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.12),transparent_40%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.12),transparent_40%)]" />
 
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
+      <header className="relative z-10 max-w-5xl mx-auto px-6 pt-14">
+        <div className="flex items-center gap-3">
+          <img src="/flame-icon.svg" alt="Flames" className="w-10 h-10" />
+          <h1 className="text-2xl font-bold text-white tracking-tight">Competency Navigator</h1>
         </div>
-      </div>
+        <p className="mt-3 text-blue-200/80 max-w-3xl">
+          Pick your job title and level. We’ll show the competencies for that role and explain what each standard (like “coaching average”) means using your definitions.
+        </p>
+      </header>
+
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-10 pb-24">
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-blue-500/20 rounded-3xl p-6 shadow-2xl">
+          <TitleLevelSelector onSelect={(sel) => setSelection(sel)} />
+          <CompetencyList title={selection.title} level={selection.level} />
+          <IngestPanel />
+        </div>
+
+        <section className="mt-10 grid md:grid-cols-3 gap-6">
+          <div className="bg-slate-900/40 border border-blue-500/10 rounded-2xl p-5">
+            <h3 className="text-white font-semibold">Fast lookup</h3>
+            <p className="text-blue-200/80 text-sm mt-1">Browse titles and levels in seconds, see the exact competencies expected.</p>
+          </div>
+          <div className="bg-slate-900/40 border border-blue-500/10 rounded-2xl p-5">
+            <h3 className="text-white font-semibold">Clear standards</h3>
+            <p className="text-blue-200/80 text-sm mt-1">Standards such as “average” or “advanced” are explained with your definitions.</p>
+          </div>
+          <div className="bg-slate-900/40 border border-blue-500/10 rounded-2xl p-5">
+            <h3 className="text-white font-semibold">Modern design</h3>
+            <p className="text-blue-200/80 text-sm mt-1">Smooth gradients, soft borders, and a distraction-free layout.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer className="relative z-10 text-center text-blue-300/60 py-6">
+        Built with Flames Blue
+      </footer>
     </div>
   )
 }
