@@ -7,6 +7,26 @@ export default function IngestPanel() {
   const [status, setStatus] = useState('')
   const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
+  const sampleMatrix = `{
+  "Senior Service Delivery Engineer": [
+    { "key": "coaching", "label": "Coaching" }
+  ]
+}`
+
+  const sampleStandards = `{
+  "Senior Service Delivery Engineer": {
+    "Senior": { "coaching": "average" }
+  }
+}`
+
+  const sampleDefinitions = `{
+  "coaching": {
+    "label": "Coaching",
+    "description": "Ability to help others grow",
+    "values": { "average": "Provides regular guidance to peers" }
+  }
+}`
+
   const submit = async () => {
     try {
       setStatus('Uploading...')
@@ -36,17 +56,17 @@ export default function IngestPanel() {
       <div className="grid md:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm text-blue-200 mb-2">General Matrix JSON</label>
-          <textarea value={matrix} onChange={(e) => setMatrix(e.target.value)} placeholder="{\n  \"Senior Service Delivery Engineer\": [\n    { \"key\": \"coaching\", \"label\": \"Coaching\" }\n  ]\n}"
+          <textarea value={matrix} onChange={(e) => setMatrix(e.target.value)} placeholder={sampleMatrix}
             className="w-full h-40 bg-slate-950/60 border border-blue-500/20 rounded-xl p-3 text-sm text-blue-100 font-mono" />
         </div>
         <div>
           <label className="block text-sm text-blue-200 mb-2">Standards JSON</label>
-          <textarea value={standards} onChange={(e) => setStandards(e.target.value)} placeholder="{\n  \"Senior Service Delivery Engineer\": {\n    \"Senior\": { \"coaching\": \"average\" }\n  }\n}"
+          <textarea value={standards} onChange={(e) => setStandards(e.target.value)} placeholder={sampleStandards}
             className="w-full h-40 bg-slate-950/60 border border-blue-500/20 rounded-xl p-3 text-sm text-blue-100 font-mono" />
         </div>
         <div>
           <label className="block text-sm text-blue-200 mb-2">Definitions JSON</label>
-          <textarea value={definitions} onChange={(e) => setDefinitions(e.target.value)} placeholder="{\n  \"coaching\": {\n    \"label\": \"Coaching\",\n    \"description\": \"Ability to help others grow\",\n    \"values\": { \"average\": \"Provides regular guidance to peers\" }\n  }\n}"
+          <textarea value={definitions} onChange={(e) => setDefinitions(e.target.value)} placeholder={sampleDefinitions}
             className="w-full h-40 bg-slate-950/60 border border-blue-500/20 rounded-xl p-3 text-sm text-blue-100 font-mono" />
         </div>
       </div>
